@@ -8,6 +8,7 @@ class Registry(
     private val rules: MutableMap<String, Rule> = HashMap()
     private val context: MutableMap<String, Rule> = HashMap()
     private val memos: MutableMap<String, Expansion> = HashMap()
+    private val cycles: MutableMap<String, Cycle> = HashMap()
 
     init {
         this.options = options ?: Options()
@@ -58,6 +59,7 @@ class Registry(
     fun resetEvaluationContext() {
         this.context.clear()
         this.memos.clear()
+        this.cycles.clear()
     }
 
 }
