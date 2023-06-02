@@ -14,7 +14,30 @@ class Registry(
         this.options = options ?: Options()
     }
 
-    fun evalulate(startSymbol: String): Expansion {
+    fun memoizeExpansion(symbol: String): Expansion {
+        if (!memos.containsKey(symbol)) {
+            memos[symbol] = this.expand(symbol).evaluate(this.options)
+        }
+
+        return memos.getValue(symbol)
+    }
+
+    fun uniqueExpansion(symbol: String): Expansion {
+        // If this symbol has not been expanded as a cycle then register it
+        if (!this.cycles.containsKey(symbol)) {
+            val prod = this.expand(symbol)
+            val cycleLength = prod.length
+            cycles[symbol] = Cycle(options, cycleLength)
+        }
+
+        return this.expand(symbol)
+            .evalulateAt(
+                cycles.getValue(symbol).poll(),
+                options
+            )
+    }
+
+    fun evaluate(startSymbol: String): Expansion {
         this.resetEvaluationContext()
 
         return Expansion(
