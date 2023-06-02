@@ -31,7 +31,7 @@ class Registry(
         }
 
         return this.expand(symbol)
-            .evalulateAt(
+            .evaluateAt(
                 cycles.getValue(symbol).poll(),
                 options
             )

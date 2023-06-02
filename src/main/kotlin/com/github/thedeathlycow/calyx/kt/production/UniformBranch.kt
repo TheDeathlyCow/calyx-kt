@@ -9,7 +9,7 @@ class UniformBranch(
     private val registry: Registry
 ): ProductionBranch {
 
-    override fun evalulateAt(index: Int, options: Options): Expansion {
+    override fun evaluateAt(index: Int, options: Options): Expansion {
         TODO("Not yet implemented")
     }
 
