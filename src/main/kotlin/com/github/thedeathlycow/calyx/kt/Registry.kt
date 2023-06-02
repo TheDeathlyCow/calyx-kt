@@ -1,5 +1,8 @@
 package com.github.thedeathlycow.calyx.kt
 
+import java.lang.reflect.Method
+import kotlin.reflect.KClass
+
 class Registry(
     options: Options? = null
 ) {
@@ -9,6 +12,7 @@ class Registry(
     private val context: MutableMap<String, Rule> = HashMap()
     private val memos: MutableMap<String, Expansion> = HashMap()
     private val cycles: MutableMap<String, Cycle> = HashMap()
+    private val filterClasses: List<KClass<out Filters>> = listOf<KClass<out Filters>>(Filters::class)
 
     init {
         this.options = options ?: Options()
@@ -76,6 +80,25 @@ class Registry(
         }
 
         return production
+    }
+
+    fun getFilterComponent(label: String): Function1<String, String> {
+        val filter: Method? = filterClasses
+            .flatMap { filterClass ->
+                filterClass.java.methods.filter { method ->
+                    val annotation: FilterName? = method.getAnnotation(FilterName::class.java)
+                    annotation !== null && annotation.name == label
+                }
+            }
+            .firstOrNull()
+
+        if (filter === null) {
+            throw UndefinedFilter(label)
+        }
+
+        return { input ->
+            filter.invoke(Filters, arrayOf(input, options)) as String
+        }
     }
 
 
