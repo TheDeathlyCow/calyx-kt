@@ -1,5 +1,6 @@
 package com.github.thedeathlycow.calyx.kt
 
+import com.github.thedeathlycow.calyx.kt.production.EmptyBranch
 import com.github.thedeathlycow.calyx.kt.production.ProductionBranch
 
 class Rule(
@@ -10,7 +11,7 @@ class Rule(
     companion object {
 
         fun empty(term: String): Rule {
-            TODO("not yet implemented")
+            return Rule(term, EmptyBranch())
         }
 
     }

@@ -6,11 +6,11 @@ import com.github.thedeathlycow.calyx.kt.Options
 class EmptyBranch: ProductionBranch {
 
     override fun evaluateAt(index: Int, options: Options): Expansion {
-        TODO("Not yet implemented")
+        return Expansion(Expansion.Symbol.EMPTY_BRANCH, Expansion(Expansion.Symbol.ATOM, ""))
     }
 
     override fun evaluate(options: Options): Expansion {
-        TODO("Not yet implemented")
+        return Expansion(Expansion.Symbol.EMPTY_BRANCH, Expansion(Expansion.Symbol.ATOM, ""))
     }
 
     override val length: Int
