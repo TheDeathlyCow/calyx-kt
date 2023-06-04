@@ -13,7 +13,7 @@ class Registry(
     private val context: MutableMap<String, Rule> = HashMap()
     private val memos: MutableMap<String, Expansion> = HashMap()
     private val cycles: MutableMap<String, Cycle> = HashMap()
-    private val filterClasses: List<KClass<out Filters>> = listOf<KClass<out Filters>>(Filters::class)
+    private val filterClasses: MutableList<KClass<Filters>> = mutableListOf<KClass<Filters>>(Filters::class)
 
     init {
         this.options = options ?: Options()
@@ -101,6 +101,10 @@ class Registry(
         }
 
         return production
+    }
+
+    fun addFilterClass(filterClass: KClass<Filters>) {
+        this.filterClasses.add(filterClass)
     }
 
     fun getFilterComponent(label: String): Function1<String, String> {
