@@ -7,3 +7,8 @@ class UndefinedRule(
 class UndefinedFilter(
     symbol: String
 ): Exception("Undefined filter '$symbol'")
+
+class IncorrectFilterSignature(
+    symbol: String,
+    cause: Throwable
+): Exception("incorrect method signature for filter: '$symbol'", cause)
