@@ -10,6 +10,14 @@ class UniformBranch(
     private val registry: Registry
 ): ProductionBranch {
 
+    companion object {
+
+        fun parse(raw: Array<String>, registry: Registry): UniformBranch {
+            TODO("parsing is hard")
+        }
+
+    }
+
     override fun evaluateAt(index: Int, options: Options): Expansion {
         val tail: Expansion = choices[index].evaluate(options)
         return Expansion(Expansion.Symbol.UNIFORM_BRANCH, tail)

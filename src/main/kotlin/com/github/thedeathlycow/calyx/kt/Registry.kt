@@ -1,6 +1,7 @@
 package com.github.thedeathlycow.calyx.kt
 
 import java.lang.reflect.Method
+import java.math.BigDecimal
 import kotlin.reflect.KClass
 
 class Registry(
@@ -16,6 +17,26 @@ class Registry(
 
     init {
         this.options = options ?: Options()
+    }
+
+    fun defineRule(name: String, productions: Array<String>) {
+        val rule = Rule.build(name, productions, this)
+        this.rules[name] = rule
+    }
+
+    fun defineRule(name: String, productions: Map<String, Int>) {
+        val rule = Rule.build(name, productions, this)
+        this.rules[name] = rule
+    }
+
+    fun defineRule(name: String, productions: Map<String, Double>) {
+        val rule = Rule.build(name, productions, this)
+        this.rules[name] = rule
+    }
+
+    fun defineRule(name: String, productions: Map<String, BigDecimal>) {
+        val rule = Rule.build(name, productions, this)
+        this.rules[name] = rule
     }
 
     fun memoizeExpansion(symbol: String): Expansion {

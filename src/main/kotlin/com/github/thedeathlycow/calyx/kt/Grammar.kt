@@ -10,8 +10,10 @@ class Grammar(
         this.registry = Registry(options)
     }
 
-    fun start(productions: Array<String>): Grammar {
+    constructor() : this(Options())
 
+    fun start(productions: Array<String>): Grammar {
+        //this.registry.de
         return this
     }
 

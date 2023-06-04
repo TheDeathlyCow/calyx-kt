@@ -3,6 +3,7 @@ package com.github.thedeathlycow.calyx.kt.production
 import com.github.thedeathlycow.calyx.kt.Expansion
 import com.github.thedeathlycow.calyx.kt.Options
 import com.github.thedeathlycow.calyx.kt.Registry
+import java.math.BigDecimal
 
 class WeightedBranch(
     private val productions: Array<WeightedProduction>,
@@ -10,6 +11,20 @@ class WeightedBranch(
 ) : ProductionBranch {
 
     private val sumOfWeights: Double
+
+    companion object {
+        fun parse(raw: Map<String, Int>, registry: Registry): WeightedBranch {
+            TODO("implement parse")
+        }
+
+        fun parse(raw: Map<String, Double>, registry: Registry): WeightedBranch {
+            TODO("implement parse")
+        }
+
+        fun parse(raw: Map<String, BigDecimal>, registry: Registry): WeightedBranch {
+            TODO("implement parse")
+        }
+    }
 
     data class WeightedProduction(
         val weight: Double,
