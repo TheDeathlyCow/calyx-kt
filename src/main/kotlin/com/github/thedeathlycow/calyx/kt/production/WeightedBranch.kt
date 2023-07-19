@@ -29,6 +29,8 @@ class WeightedBranch(
     }
 
     companion object {
+
+        @JvmName("parseInt")
         fun parse(raw: Map<String, Int>, registry: Registry): WeightedBranch {
             val weightedProds = raw.asSequence()
                 .map {
@@ -41,6 +43,7 @@ class WeightedBranch(
             return WeightedBranch(weightedProds, registry)
         }
 
+        @JvmName("parseDouble")
         fun parse(raw: Map<String, Double>, registry: Registry): WeightedBranch {
             require(raw.all { it.value.isFinite() }) {
                 "Weights may not be infinite"
@@ -61,6 +64,7 @@ class WeightedBranch(
             return WeightedBranch(weightedProds, registry)
         }
 
+        @JvmName("parseDecimal")
         fun parse(raw: Map<String, BigDecimal>, registry: Registry): WeightedBranch {
             val weightedProds = raw.asSequence()
                 .map {

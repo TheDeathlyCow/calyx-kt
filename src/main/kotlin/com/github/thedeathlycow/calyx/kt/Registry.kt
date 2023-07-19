@@ -29,11 +29,13 @@ class Registry(
         this.rules[name] = rule
     }
 
+    @JvmName("defineRuleDouble")
     fun defineRule(name: String, productions: Map<String, Double>) {
         val rule = Rule.build(name, productions, this)
         this.rules[name] = rule
     }
 
+    @JvmName("defineRuleDecimal")
     fun defineRule(name: String, productions: Map<String, BigDecimal>) {
         val rule = Rule.build(name, productions, this)
         this.rules[name] = rule

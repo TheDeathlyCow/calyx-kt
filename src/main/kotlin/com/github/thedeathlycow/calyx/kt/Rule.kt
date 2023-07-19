@@ -22,16 +22,20 @@ class Rule(
             return Rule(term, branch)
         }
 
+        @JvmName("buildInt")
         fun build(term: String, productions: Map<String, Int>, registry: Registry): Rule {
             val branch = WeightedBranch.parse(productions, registry)
             return Rule(term, branch)
         }
 
+        @JvmName("buildDouble")
         fun build(term: String, productions: Map<String, Double>, registry: Registry): Rule {
             val branch = WeightedBranch.parse(productions, registry)
             return Rule(term, branch)
         }
 
+
+        @JvmName("buildDecimal")
         fun build(term: String, productions: Map<String, BigDecimal>, registry: Registry): Rule {
             val branch = WeightedBranch.parse(productions, registry)
             return Rule(term, branch)
