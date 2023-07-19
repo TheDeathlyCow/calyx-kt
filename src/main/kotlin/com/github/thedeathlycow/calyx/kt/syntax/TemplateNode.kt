@@ -11,13 +11,14 @@ class TemplateNode(
 ) : Production {
 
     companion object {
-        private const val EXPRESSION: String = "(\\{[A-Za-z0-9_@$<>\\.]+\\})"
+        private const val EXPRESSION: String = "\\{[A-Za-z\\d_@$<>.]+\\}"
+        private val EXPRESSION_REGEX: Regex = "((?<=$EXPRESSION\\s)|(?=$EXPRESSION\\s))".toRegex()
         private const val START_TOKEN: String = "{"
         private const val END_TOKEN: String = "}"
-        private const val DEREF_TOKEN: String = "\\."
+        private val DEREF_TOKEN: Regex = Regex(".")
 
         fun parse(raw: String, registry: Registry): TemplateNode {
-            val fragments: List<String> = raw.split(EXPRESSION)
+            val fragments: List<String> = raw.split(EXPRESSION_REGEX)
 
             val concatNodes = mutableListOf<Production>()
 
