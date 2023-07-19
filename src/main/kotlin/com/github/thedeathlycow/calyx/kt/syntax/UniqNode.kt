@@ -10,7 +10,6 @@ class UniqNode(
     private val registry: Registry
 ): Production {
 
-
     override fun evaluate(options: Options): Expansion {
         val eval = registry.uniqueExpansion(symbol)
         return Expansion(Expansion.Symbol.UNIQ, eval)

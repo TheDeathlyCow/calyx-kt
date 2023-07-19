@@ -7,7 +7,7 @@ import com.github.thedeathlycow.calyx.kt.Registry
 import com.github.thedeathlycow.calyx.kt.production.Production
 
 class ExpressionChain(
-    private val components: Array<String>,
+    private val components: List<String>,
     private val registry: Registry
 ) : Production {
 
