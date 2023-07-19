@@ -15,7 +15,7 @@ class Grammar(
 
     constructor() : this(Options())
 
-    fun start(productions: Array<String>): Grammar {
+    fun start(productions: List<String>): Grammar {
         this.registry.defineRule("start", productions)
         return this
     }
@@ -35,13 +35,13 @@ class Grammar(
         return this
     }
 
-    fun rule(name: String, productions: Array<String>): Grammar {
+    fun rule(name: String, productions: List<String>): Grammar {
         registry.defineRule(name, productions)
         return this
     }
 
     fun rule(name: String, production: String): Grammar {
-        registry.defineRule(name, arrayOf(production))
+        registry.defineRule(name, listOf(production))
         return this
     }
 
@@ -73,11 +73,11 @@ class Grammar(
         return Result(registry.evaluate(startSymbol))
     }
 
-    fun generate(context: Map<String, Array<String>>): Result {
+    fun generate(context: Map<String, List<String>>): Result {
         return Result(registry.evaluate("start", context))
     }
 
-    fun generate(startSymbol: String, context: Map<String, Array<String>>): Result {
+    fun generate(startSymbol: String, context: Map<String, List<String>>): Result {
         return Result(registry.evaluate(startSymbol, context))
     }
 }

@@ -19,7 +19,7 @@ class Registry(
         this.options = options ?: Options()
     }
 
-    fun defineRule(name: String, productions: Array<String>) {
+    fun defineRule(name: String, productions: List<String>) {
         val rule = Rule.build(name, productions, this)
         this.rules[name] = rule
     }
@@ -71,7 +71,7 @@ class Registry(
         )
     }
 
-    fun evaluate(startSymbol: String, context: Map<String, Array<String>>): Expansion {
+    fun evaluate(startSymbol: String, context: Map<String, List<String>>): Expansion {
         this.resetEvaluationContext()
 
         context.forEach { rule ->
@@ -125,7 +125,6 @@ class Registry(
             filter.invoke(Filters, arrayOf(input, options)) as String
         }
     }
-
 
     fun resetEvaluationContext() {
         this.context.clear()

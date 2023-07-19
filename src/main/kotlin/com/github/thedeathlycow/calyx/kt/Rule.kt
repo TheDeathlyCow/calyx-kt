@@ -17,7 +17,7 @@ class Rule(
             return Rule(term, EmptyBranch())
         }
 
-        fun build(term: String, productions: Array<String>, registry: Registry): Rule {
+        fun build(term: String, productions: List<String>, registry: Registry): Rule {
             val branch = UniformBranch.parse(productions, registry)
             return Rule(term, branch)
         }

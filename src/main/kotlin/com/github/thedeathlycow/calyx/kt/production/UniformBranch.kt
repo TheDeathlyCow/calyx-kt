@@ -3,17 +3,25 @@ package com.github.thedeathlycow.calyx.kt.production
 import com.github.thedeathlycow.calyx.kt.Expansion
 import com.github.thedeathlycow.calyx.kt.Options
 import com.github.thedeathlycow.calyx.kt.Registry
+import com.github.thedeathlycow.calyx.kt.syntax.TemplateNode
 
 
 class UniformBranch(
-    private val choices: Array<Production>,
+    private val choices: List<Production>,
     private val registry: Registry
 ): ProductionBranch {
 
     companion object {
 
-        fun parse(raw: Array<String>, registry: Registry): UniformBranch {
-            TODO("parsing is hard")
+        fun parse(raw: List<String>, registry: Registry): UniformBranch {
+
+            val choices = raw.asSequence()
+                .map {
+                    TemplateNode.parse(it, registry)
+                }
+                .toList()
+
+            return UniformBranch(choices, registry)
         }
 
     }
