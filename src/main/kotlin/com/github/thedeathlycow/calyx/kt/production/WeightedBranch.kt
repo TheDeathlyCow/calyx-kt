@@ -3,28 +3,15 @@ package com.github.thedeathlycow.calyx.kt.production
 import com.github.thedeathlycow.calyx.kt.Expansion
 import com.github.thedeathlycow.calyx.kt.Options
 import com.github.thedeathlycow.calyx.kt.Registry
+import com.github.thedeathlycow.calyx.kt.syntax.TemplateNode
 import java.math.BigDecimal
 
 class WeightedBranch(
-    private val productions: Array<WeightedProduction>,
+    private val productions: List<WeightedProduction>,
     private val registry: Registry
 ) : ProductionBranch {
 
     private val sumOfWeights: Double
-
-    companion object {
-        fun parse(raw: Map<String, Int>, registry: Registry): WeightedBranch {
-            TODO("implement parse")
-        }
-
-        fun parse(raw: Map<String, Double>, registry: Registry): WeightedBranch {
-            TODO("implement parse")
-        }
-
-        fun parse(raw: Map<String, BigDecimal>, registry: Registry): WeightedBranch {
-            TODO("implement parse")
-        }
-    }
 
     data class WeightedProduction(
         val weight: Double,
@@ -33,12 +20,59 @@ class WeightedBranch(
 
     init {
 
-        require(this.productions.asSequence().none { p -> p.weight <= 0.0 }) {
+        require(this.productions.none { p -> p.weight <= 0.0 }) {
             "All weights must be greater than zero"
         }
 
-        sumOfWeights = this.productions.asSequence().sumOf { p -> p.weight }
+        sumOfWeights = this.productions.sumOf { p -> p.weight }
 
+    }
+
+    companion object {
+        fun parse(raw: Map<String, Int>, registry: Registry): WeightedBranch {
+            val weightedProds = raw.asSequence()
+                .map {
+                    WeightedProduction(
+                        production = TemplateNode.parse(it.key, registry),
+                        weight = it.value.toDouble()
+                    )
+                }
+                .toList()
+            return WeightedBranch(weightedProds, registry)
+        }
+
+        fun parse(raw: Map<String, Double>, registry: Registry): WeightedBranch {
+            require(raw.all { it.value.isFinite() }) {
+                "Weights may not be infinite"
+            }
+            require(raw.all { !it.value.isNaN() }) {
+                "Weights may not be NaN"
+            }
+
+            val weightedProds = raw.asSequence()
+                .map {
+                    WeightedProduction(
+                        production = TemplateNode.parse(it.key, registry),
+                        weight = it.value
+                    )
+                }
+                .toList()
+
+            return WeightedBranch(weightedProds, registry)
+        }
+
+        fun parse(raw: Map<String, BigDecimal>, registry: Registry): WeightedBranch {
+            val weightedProds = raw.asSequence()
+                .map {
+                    WeightedProduction(
+                        production = TemplateNode.parse(it.key, registry),
+                        weight = it.value.toDouble()
+                    )
+                }
+                .toList()
+
+            return WeightedBranch(weightedProds, registry)
+        }
     }
 
     override fun evaluateAt(index: Int, options: Options): Expansion {
@@ -64,7 +98,7 @@ class WeightedBranch(
     }
 
 
-    override val length: Int
+    override val size: Int
         get() = productions.size
 
 }

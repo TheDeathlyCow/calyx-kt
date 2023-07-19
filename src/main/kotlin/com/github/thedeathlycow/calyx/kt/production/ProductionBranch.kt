@@ -7,6 +7,6 @@ interface ProductionBranch: Production {
 
     fun evaluateAt(index: Int, options: Options): Expansion
 
-    val length: Int
+    val size: Int
 
 }

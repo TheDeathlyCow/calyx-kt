@@ -13,7 +13,7 @@ class EmptyBranch: ProductionBranch {
         return Expansion(Expansion.Symbol.EMPTY_BRANCH, Expansion(Expansion.Symbol.ATOM, ""))
     }
 
-    override val length: Int
+    override val size: Int
         get() = 1
 
 }

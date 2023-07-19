@@ -51,7 +51,7 @@ class Registry(
         // If this symbol has not been expanded as a cycle then register it
         if (!this.cycles.containsKey(symbol)) {
             val prod = this.expand(symbol)
-            val cycleLength = prod.length
+            val cycleLength = prod.size
             cycles[symbol] = Cycle(options, cycleLength)
         }
 
@@ -74,9 +74,8 @@ class Registry(
     fun evaluate(startSymbol: String, context: Map<String, List<String>>): Expansion {
         this.resetEvaluationContext()
 
-        context.forEach { rule ->
-            // TODO: Rule#build
-            //this.context[rule.key] = Rule.build(rule.key, rule.value, this)
+        context.forEach {
+            this.context[it.key] = Rule.build(it.key, it.value, this)
         }
 
         return Expansion(
@@ -86,18 +85,16 @@ class Registry(
     }
 
     fun expand(symbol: String): Rule {
-        val production: Rule
 
-        if (rules.containsKey(symbol)) {
-            production = this.rules.getValue(symbol)
+        val production: Rule = if (rules.containsKey(symbol)) {
+            this.rules.getValue(symbol)
         } else if (context.containsKey(symbol)) {
-            production = this.context.getValue(symbol)
+            this.context.getValue(symbol)
         } else {
             if (this.options.isStrict) {
                 throw UndefinedRule(symbol)
             }
-
-            production = Rule.empty(symbol)
+            Rule.empty(symbol)
         }
 
         return production
@@ -126,7 +123,7 @@ class Registry(
         }
     }
 
-    fun resetEvaluationContext() {
+    private fun resetEvaluationContext() {
         this.context.clear()
         this.memos.clear()
         this.cycles.clear()

@@ -36,6 +36,6 @@ class UniformBranch(
         return evaluateAt(index, options)
     }
 
-    override val length: Int
+    override val size: Int
         get() = choices.size
 }
