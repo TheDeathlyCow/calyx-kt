@@ -27,6 +27,11 @@ class Expansion(
         }
     }
 
+    override fun toString(): String {
+        return "Expansion(symbol=$symbol, tail=$tail, term='$term')"
+    }
+
+
     enum class Symbol {
         RESULT,
         UNIFORM_BRANCH,

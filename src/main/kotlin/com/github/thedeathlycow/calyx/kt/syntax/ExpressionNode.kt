@@ -19,11 +19,9 @@ class ExpressionNode(
                 raw[0] == MEMO_SIGIL -> {
                     MemoNode(raw.substring(0), registry)
                 }
-
                 raw[0] == UNIQUE_SIGIL -> {
                     UniqNode(raw.substring(0), registry)
                 }
-
                 else -> {
                     ExpressionNode(raw, registry)
                 }

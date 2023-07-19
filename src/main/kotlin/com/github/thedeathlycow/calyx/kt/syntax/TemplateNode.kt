@@ -12,10 +12,10 @@ class TemplateNode(
 
     companion object {
         private const val EXPRESSION: String = "\\{[A-Za-z\\d_@$<>.]+\\}"
-        private val EXPRESSION_REGEX: Regex = "((?<=$EXPRESSION\\s)|(?=$EXPRESSION\\s))".toRegex()
+        private val EXPRESSION_REGEX: Regex = "((?<=$EXPRESSION)|(?=$EXPRESSION))".toRegex()
         private const val START_TOKEN: String = "{"
         private const val END_TOKEN: String = "}"
-        private val DEREF_TOKEN: Regex = Regex(".")
+        private const val DEREF_TOKEN: String = "."
 
         fun parse(raw: String, registry: Registry): TemplateNode {
             val fragments: List<String> = raw.split(EXPRESSION_REGEX)
