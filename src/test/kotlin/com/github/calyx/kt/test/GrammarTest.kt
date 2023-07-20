@@ -60,10 +60,10 @@ class GrammarTest {
     fun generateRuleAndContextTest() {
         val grammar = Grammar()
 
-        grammar.rule("doubletidle", "{tilde}{tilde}")
+        grammar.rule("doubletilde", "{tilde}{tilde}")
 
         val context: MutableMap<String, List<String>> = HashMap()
-        context["tidle"] = listOf("~~~~")
+        context["tilde"] = listOf("~~~~")
 
         val result = grammar.generate("doubletilde", context)
 
@@ -76,7 +76,7 @@ class GrammarTest {
 
         val context: MutableMap<String, List<String>> = HashMap()
         context["doubletilde"] = listOf("{tilde}{tilde}")
-        context["tidle"] = listOf("~~~~")
+        context["tilde"] = listOf("~~~~")
 
         val result = grammar.generate("doubletilde", context)
 
@@ -98,7 +98,7 @@ class GrammarTest {
     @Test
     fun filterExpressionTest() {
         val grammar = Grammar(registrationCallback = {
-            it.start("greekLetter.uppercase")
+            it.start("{greekLetter.uppercase}")
                 .rule("greekLetter", listOf("alpha"))
         })
 
@@ -110,7 +110,7 @@ class GrammarTest {
     @Test
     fun customFilterExpressionTest() {
         val grammar = Grammar(registrationCallback = {
-            it.start("word.vowelcount")
+            it.start("{word.vowelcount}")
                 .rule("word", listOf("autobiographies"))
                 .filters(TestFilter::class)
         })

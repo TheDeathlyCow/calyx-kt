@@ -17,10 +17,10 @@ class ExpressionNode(
         fun parse(raw: String, registry: Registry): Production {
             return when {
                 raw[0] == MEMO_SIGIL -> {
-                    MemoNode(raw.substring(0), registry)
+                    MemoNode(raw.substring(1), registry)
                 }
                 raw[0] == UNIQUE_SIGIL -> {
-                    UniqNode(raw.substring(0), registry)
+                    UniqNode(raw.substring(1), registry)
                 }
                 else -> {
                     ExpressionNode(raw, registry)
