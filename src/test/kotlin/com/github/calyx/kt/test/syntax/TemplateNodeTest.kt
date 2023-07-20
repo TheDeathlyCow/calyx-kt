@@ -38,7 +38,7 @@ class TemplateNodeTest {
     }
 
     @Test
-    fun templeWithSpaceIsAllowed() {
+    fun templateWithSpaceIsAllowed() {
         val registry = Registry()
         registry.defineRule("name", listOf("Fabian"))
         registry.defineRule("title", listOf("King"))
