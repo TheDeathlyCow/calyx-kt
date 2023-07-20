@@ -17,6 +17,10 @@ class Expansion(
         return concat
     }
 
+    fun flattenToString(): String {
+        return flatten().toString()
+    }
+
     fun collectAtoms(concat: StringBuilder) {
         if (this.symbol == Symbol.ATOM) {
             concat.append(this.term);
