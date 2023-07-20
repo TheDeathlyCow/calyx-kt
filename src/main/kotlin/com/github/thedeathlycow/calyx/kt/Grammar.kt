@@ -94,7 +94,7 @@ class Grammar(
         return this
     }
 
-    fun filters(filters: KClass<Filters>): Grammar {
+    fun filters(filters: KClass<*>): Grammar {
         registry.addFilterClass(filters)
         return this
     }

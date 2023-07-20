@@ -13,7 +13,7 @@ class Registry(
     private val context: MutableMap<String, Rule> = HashMap()
     private val memos: MutableMap<String, Expansion> = HashMap()
     private val cycles: MutableMap<String, Cycle> = HashMap()
-    private val filterClasses: MutableList<KClass<Filters>> = mutableListOf<KClass<Filters>>(Filters::class)
+    private val filterClasses: MutableList<KClass<*>> = mutableListOf(Filters::class)
 
     init {
         this.options = options ?: Options()
@@ -102,7 +102,7 @@ class Registry(
         return production
     }
 
-    fun addFilterClass(filterClass: KClass<Filters>) {
+    fun addFilterClass(filterClass: KClass<*>) {
         this.filterClasses.add(filterClass)
     }
 
@@ -120,8 +120,12 @@ class Registry(
             throw UndefinedFilter(label)
         }
 
+        if (filter.getAnnotation(JvmStatic::class.java) === null) {
+            throw NonStaticFilter(label)
+        }
+
         return { input ->
-            filter.invoke(Filters, arrayOf(input, options)) as String
+            filter.invoke(null, input, options) as String
         }
     }
 
