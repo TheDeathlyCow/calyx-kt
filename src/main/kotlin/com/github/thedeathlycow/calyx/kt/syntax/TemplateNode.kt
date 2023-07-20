@@ -23,7 +23,7 @@ class TemplateNode(
             val concatNodes = mutableListOf<Production>()
 
             for (atom in fragments) {
-                if (atom.isBlank()) continue
+                if (atom.isEmpty()) continue
 
                 // check if this is a template expression or atom
                 if (atom.startsWith(START_TOKEN) && atom.endsWith(END_TOKEN)) {

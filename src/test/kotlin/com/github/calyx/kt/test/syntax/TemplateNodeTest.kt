@@ -37,4 +37,15 @@ class TemplateNodeTest {
         assertEquals(" two three", exp.tail[1].term)
     }
 
+    @Test
+    fun templeWithSpaceIsAllowed() {
+        val registry = Registry()
+        registry.defineRule("name", listOf("Fabian"))
+        registry.defineRule("title", listOf("King"))
+
+        val node = TemplateNode.parse("{title} {name}", registry)
+
+        val exp = node.evaluate(Options())
+        assertEquals("King Fabian", exp.flattenToString())
+    }
 }

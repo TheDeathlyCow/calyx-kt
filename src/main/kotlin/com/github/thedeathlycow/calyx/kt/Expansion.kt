@@ -35,7 +35,6 @@ class Expansion(
         return "Expansion(symbol=$symbol, tail=$tail, term='$term')"
     }
 
-
     enum class Symbol {
         RESULT,
         UNIFORM_BRANCH,
