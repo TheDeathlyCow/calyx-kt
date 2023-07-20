@@ -62,9 +62,9 @@ class GrammarTest {
 
         grammar.rule("doubletilde", "{tilde}{tilde}")
 
-        val context: MutableMap<String, List<String>> = HashMap()
-        context["tilde"] = listOf("~~~~")
-
+        val context = mapOf(
+            "tilde" to listOf("~~~~")
+        )
         val result = grammar.generate("doubletilde", context)
 
         assertEquals("~~~~~~~~", result.text)
@@ -74,9 +74,10 @@ class GrammarTest {
     fun generateOnlyContextTest() {
         val grammar = Grammar()
 
-        val context: MutableMap<String, List<String>> = HashMap()
-        context["doubletilde"] = listOf("{tilde}{tilde}")
-        context["tilde"] = listOf("~~~~")
+        val context = mapOf(
+            "doubletilde" to listOf("{tilde}{tilde}"),
+            "tilde" to listOf("~~~~")
+        )
 
         val result = grammar.generate("doubletilde", context)
 
