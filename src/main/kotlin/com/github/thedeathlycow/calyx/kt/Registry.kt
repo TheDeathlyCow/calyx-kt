@@ -129,7 +129,7 @@ class Registry(
         }
     }
 
-    private fun resetEvaluationContext() {
+    fun resetEvaluationContext() {
         this.context.clear()
         this.memos.clear()
         this.cycles.clear()
