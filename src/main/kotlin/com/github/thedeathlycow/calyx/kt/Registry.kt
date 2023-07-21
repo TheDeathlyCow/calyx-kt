@@ -87,8 +87,7 @@ class Registry(
     }
 
     fun expand(symbol: String): Rule {
-
-        val production: Rule = if (rules.containsKey(symbol)) {
+        return if (rules.containsKey(symbol)) {
             this.rules.getValue(symbol)
         } else if (context.containsKey(symbol)) {
             this.context.getValue(symbol)
@@ -98,8 +97,6 @@ class Registry(
             }
             Rule.empty(symbol)
         }
-
-        return production
     }
 
     fun addFilterClass(filterClass: KClass<*>) {
