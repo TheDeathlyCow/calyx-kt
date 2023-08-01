@@ -1,7 +1,6 @@
 package com.github.thedeathlycow.calyx.kt
 
 import java.util.*
-import java.util.regex.Pattern
 
 @Suppress("unused")
 object Filters {
@@ -28,9 +27,9 @@ object Filters {
     @JvmStatic
     fun sentencecase(input: String, options: Options): String {
         val lowerCase = input.lowercase()
-        val regex = Pattern.compile("(^[A-Z])|(\\.\\s+(.))", Pattern.MULTILINE)
-        return regex.matcher(lowerCase).replaceAll {
-            it.group().uppercase()
+        val regex = Regex("(^[A-Z])|(\\.\\s+(.))", RegexOption.MULTILINE)
+        return lowerCase.replace(regex) {
+            it.value.uppercase()
         }
     }
 
