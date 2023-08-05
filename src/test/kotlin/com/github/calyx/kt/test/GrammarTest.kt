@@ -29,29 +29,29 @@ class GrammarTest {
 
     @Test
     fun constructorRuleTest() {
-        val grammar = Grammar(registrationCallback = {
+        val grammar = Grammar {
             it.rule("start", "#|||#")
-        })
+        }
         val result = grammar.generate()
         assertEquals("#|||#", result.text)
     }
 
     @Test
     fun constructorStartTest() {
-        val grammar = Grammar(registrationCallback = {
+        val grammar = Grammar {
             it.start("{plus}|||{plus}")
                 .rule("plus", "++++")
-        })
+        }
         val result = grammar.generate()
         assertEquals("++++|||++++", result.text)
     }
 
     @Test
     fun customStartSymbolTest() {
-        val grammar = Grammar(registrationCallback = {
+        val grammar = Grammar {
             it.rule("banner", "{tilde}|||{tilde}")
                 .rule("tilde", "~~~~")
-        })
+        }
         val result = grammar.generate("banner")
         assertEquals("~~~~|||~~~~", result.text)
     }
@@ -86,10 +86,10 @@ class GrammarTest {
 
     @Test
     fun memoizationExpressionTest() {
-        val grammar = Grammar(registrationCallback = {
+        val grammar = Grammar {
             it.start("{@glyph}|{@glyph}")
                 .rule("glyph", listOf("+"))
-        })
+        }
 
         val result = grammar.generate()
 
@@ -98,10 +98,10 @@ class GrammarTest {
 
     @Test
     fun filterExpressionTest() {
-        val grammar = Grammar(registrationCallback = {
+        val grammar = Grammar {
             it.start("{greekLetter.uppercase}")
                 .rule("greekLetter", listOf("alpha"))
-        })
+        }
 
         val result = grammar.generate()
 
@@ -110,11 +110,11 @@ class GrammarTest {
 
     @Test
     fun customFilterExpressionTest() {
-        val grammar = Grammar(registrationCallback = {
+        val grammar = Grammar {
             it.start("{word.vowelcount}")
                 .rule("word", listOf("autobiographies"))
                 .filters(TestFilter::class)
-        })
+        }
 
         val result = grammar.generate()
 

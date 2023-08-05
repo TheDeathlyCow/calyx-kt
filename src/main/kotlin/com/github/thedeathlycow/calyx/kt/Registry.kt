@@ -103,7 +103,7 @@ class Registry(
         this.filterClasses.add(filterClass)
     }
 
-    fun getFilterComponent(label: String): Function1<String, String> {
+    fun getFilterComponent(label: String): (String) -> String  {
         val filter: Method? = filterClasses
             .flatMap { filterClass ->
                 filterClass.java.methods.filter { method ->

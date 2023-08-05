@@ -1,7 +1,6 @@
 package com.github.thedeathlycow.calyx.kt
 
 import java.math.BigDecimal
-import java.util.function.Consumer
 import kotlin.random.Random
 import kotlin.reflect.KClass
 
@@ -24,18 +23,18 @@ class Grammar(
     constructor(seed: Int, strict: Boolean = Options.defaultStrict) : this(Options(seed, strict))
 
     constructor(
-        registrationCallback: Consumer<Grammar>,
-        strict: Boolean = Options.defaultStrict
+        strict: Boolean = Options.defaultStrict,
+        registrationCallback: (Grammar) -> Unit
     ) : this(strict) {
-        registrationCallback.accept(this)
+        registrationCallback.invoke(this)
     }
 
     constructor(
-        registrationCallback: Consumer<Grammar>,
         seed: Int,
-        strict: Boolean = Options.defaultStrict
+        strict: Boolean = Options.defaultStrict,
+        registrationCallback: (Grammar) -> Unit
     ) : this(seed, strict) {
-        registrationCallback.accept(this)
+        registrationCallback.invoke(this)
     }
 
     fun start(productions: List<String>): Grammar {
