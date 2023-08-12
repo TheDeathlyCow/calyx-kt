@@ -12,7 +12,7 @@ class TemplateNode(
 ) : Production {
 
     companion object {
-        private val EXPRESSION_REGEX: Regex = "\\{[A-Za-z\\d_@$<>.]+}".toRegex()
+        private val EXPRESSION_REGEX: Regex = Regex("\\{[A-Za-z0-9_@$<>.]+}")
         private const val START_TOKEN: Char = '{'
         private const val END_TOKEN: Char = '}'
         private const val DEREF_TOKEN: Char = '.'

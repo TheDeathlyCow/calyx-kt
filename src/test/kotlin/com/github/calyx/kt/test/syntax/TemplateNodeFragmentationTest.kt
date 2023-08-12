@@ -56,7 +56,8 @@ class TemplateNodeFragmentationTest {
     @ValueSource(
         strings = [
             "{contains a space}",
-            "{%% invalid chars}"
+            "{%% invalid chars}",
+            "{}"
         ]
     )
     fun fragmentInvalidExpressionThrows(input: String) {
