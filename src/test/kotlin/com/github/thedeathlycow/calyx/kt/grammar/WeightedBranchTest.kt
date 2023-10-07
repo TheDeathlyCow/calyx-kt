@@ -1,4 +1,4 @@
-package com.github.calyx.kt.test.grammar
+package com.github.calyx.kt.grammar
 
 import com.github.thedeathlycow.calyx.kt.Grammar
 import org.junit.jupiter.api.Test

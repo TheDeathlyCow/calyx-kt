@@ -1,4 +1,4 @@
-package com.github.calyx.kt.test
+package com.github.calyx.kt
 
 import com.github.thedeathlycow.calyx.kt.FilterName
 import com.github.thedeathlycow.calyx.kt.Grammar

@@ -1,4 +1,4 @@
-package com.github.calyx.kt.test.syntax
+package com.github.calyx.kt.syntax
 
 import com.github.thedeathlycow.calyx.kt.Expansion
 import com.github.thedeathlycow.calyx.kt.Registry

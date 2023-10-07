@@ -1,4 +1,4 @@
-package com.github.calyx.kt.test.production
+package com.github.calyx.kt.production
 
 import com.github.thedeathlycow.calyx.kt.Expansion
 import com.github.thedeathlycow.calyx.kt.Options
