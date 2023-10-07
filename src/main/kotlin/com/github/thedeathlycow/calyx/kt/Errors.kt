@@ -21,3 +21,8 @@ class InvalidExpression(
     symbol: String,
     cause: Throwable? = null
 ): IllegalArgumentException("Illegal expression '$symbol'", cause)
+
+class GrammarParseException(
+    message: String,
+    cause: Throwable? = null
+): Exception(message, cause)
