@@ -10,7 +10,7 @@ class Cycle(
     init {
         require(count > 0) { "'count' must be greater than zero" }
 
-        this.index = count - 1
+        this.index = count - 1 // defers shuffling to first poll() call
         sequence = IntArray(count) {
             it
         }
