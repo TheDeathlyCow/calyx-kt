@@ -1,4 +1,4 @@
-package com.github.calyx.kt
+package com.github.thedeathlycow.calyx.kt
 
 import com.github.thedeathlycow.calyx.kt.Cycle
 import com.github.thedeathlycow.calyx.kt.Options
