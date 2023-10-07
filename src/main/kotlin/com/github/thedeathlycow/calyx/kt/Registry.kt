@@ -54,12 +54,12 @@ class Registry(
         if (!this.cycles.containsKey(symbol)) {
             val prod = this.expand(symbol)
             val cycleLength = prod.size
-            cycles[symbol] = Cycle(options, cycleLength)
+            cycles[symbol] = Cycle(cycleLength)
         }
 
         return this.expand(symbol)
             .evaluateAt(
-                cycles.getValue(symbol).poll(),
+                cycles.getValue(symbol).poll(options),
                 options
             )
     }

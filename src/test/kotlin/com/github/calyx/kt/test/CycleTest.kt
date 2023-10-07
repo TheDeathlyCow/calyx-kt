@@ -9,11 +9,12 @@ class CycleTest {
 
     @Test
     fun cycleLengthOneAlwaysReturnsZerothIndex() {
-        val cycle = Cycle(Options(), 1)
+        val cycle = Cycle(1)
 
-        assertEquals(0, cycle.poll())
-        assertEquals(0, cycle.poll())
-        assertEquals(0, cycle.poll())
+        val ops = Options()
+        assertEquals(0, cycle.poll(ops))
+        assertEquals(0, cycle.poll(ops))
+        assertEquals(0, cycle.poll(ops))
     }
 
 }
