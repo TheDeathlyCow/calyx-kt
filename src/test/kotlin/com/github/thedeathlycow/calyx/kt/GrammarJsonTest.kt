@@ -109,6 +109,7 @@ class GrammarJsonTest {
     @ParameterizedTest
     @ValueSource(
         strings = [
+            "null",
             "NaN",
             "true",
             "[]",
@@ -124,6 +125,39 @@ class GrammarJsonTest {
                         "Hello {world}!": $invalid
                     },
                     "world": "earth"
+                }
+                """.trimIndent()
+            )
+        }
+    }
+
+    @ParameterizedTest
+    @ValueSource(
+        strings = [
+            "null",
+            "[]",
+            """{"hello": "lol"}"""
+        ]
+    )
+    fun parseRecursiveWeightedRule_failsOnNonPrimitiveList(invalid: String) {
+        assertThrows<GrammarParseException> {
+            Grammar.loadJson(
+                """
+                {
+                    "start": [$invalid]
+                }
+                """.trimIndent()
+            )
+        }
+    }
+
+    @Test
+    fun parseRule_failsWhenNull() {
+        assertThrows<GrammarParseException> {
+            Grammar.loadJson(
+                """
+                {
+                    "start": null
                 }
                 """.trimIndent()
             )
