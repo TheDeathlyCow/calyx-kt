@@ -1,6 +1,7 @@
 package com.github.thedeathlycow.calyx.kt
 
 import java.math.BigDecimal
+import java.util.StringJoiner
 import kotlin.random.Random
 import kotlin.reflect.KClass
 
@@ -24,17 +25,17 @@ class Grammar(
 
     constructor(
         strict: Boolean = Options.defaultStrict,
-        registrationCallback: (Grammar) -> Unit
+        registrationCallback: Grammar.() -> Unit
     ) : this(strict) {
-        registrationCallback.invoke(this)
+        registrationCallback()
     }
 
     constructor(
         seed: Int,
         strict: Boolean = Options.defaultStrict,
-        registrationCallback: (Grammar) -> Unit
+        registrationCallback: Grammar.() -> Unit
     ) : this(seed, strict) {
-        registrationCallback.invoke(this)
+        registrationCallback()
     }
 
     fun start(productions: List<String>): Grammar {
