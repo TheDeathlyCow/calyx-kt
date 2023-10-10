@@ -38,6 +38,10 @@ class Grammar(
         registrationCallback()
     }
 
+    fun load(fileName: String) {
+
+    }
+
     fun start(productions: List<String>): Grammar {
         this.registry.defineRule("start", productions)
         return this

@@ -15,6 +15,7 @@ dependencies {
     testImplementation 'org.jetbrains.kotlin:kotlin-test'
     testImplementation "org.mockito:mockito-core:3.+"
     testImplementation 'org.junit.jupiter:junit-jupiter-params:5.1.0'
+    implementation 'com.google.code.gson:gson:2.10.1'
     implementation "org.jetbrains.kotlin:kotlin-reflect:1.8.10"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 }
