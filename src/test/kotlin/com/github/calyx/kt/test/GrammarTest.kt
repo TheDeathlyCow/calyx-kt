@@ -113,7 +113,7 @@ class GrammarTest {
         val grammar = Grammar {
             start("{word.vowelcount}")
                 .rule("word", "autobiographies")
-                .filters(TestFilter::class)
+                .filters(TestFilter)
         }
 
         val result = grammar.generate()

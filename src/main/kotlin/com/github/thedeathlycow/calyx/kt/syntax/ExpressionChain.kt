@@ -20,11 +20,7 @@ class ExpressionChain(
         val modified: String = this.components.asSequence()
             .drop(1)
             .fold(initial) { accumulator, filterName ->
-                try {
-                    registry.getFilterComponent(filterName).invoke(accumulator)
-                } catch (e: IllegalArgumentException) {
-                    throw IncorrectFilterSignature(filterName, e)
-                }
+                registry.getFilterComponent(filterName)(accumulator, options)
             }
 
         return Expansion(Expansion.Symbol.EXPRESSION, Expansion(Expansion.Symbol.ATOM, modified))

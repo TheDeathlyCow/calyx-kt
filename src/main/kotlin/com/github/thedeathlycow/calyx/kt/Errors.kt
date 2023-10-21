@@ -8,10 +8,6 @@ class UndefinedFilter(
     symbol: String
 ): Exception("Undefined filter '$symbol'")
 
-class NonStaticFilter(
-    symbol: String
-): Exception("Filter not defined as static '$symbol' (annotate with @JvmStatic if using Kotlin)")
-
 class IncorrectFilterSignature(
     symbol: String,
     cause: Throwable

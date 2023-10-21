@@ -1,7 +1,6 @@
 package com.github.thedeathlycow.calyx.kt
 
 import java.math.BigDecimal
-import java.util.StringJoiner
 import kotlin.random.Random
 import kotlin.reflect.KClass
 
@@ -98,8 +97,8 @@ class Grammar(
         return this
     }
 
-    fun filters(filters: KClass<*>): Grammar {
-        registry.addFilterClass(filters)
+    fun filters(filters: Any): Grammar {
+        registry.addFilters(filters)
         return this
     }
 

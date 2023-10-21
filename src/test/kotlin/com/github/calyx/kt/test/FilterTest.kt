@@ -62,7 +62,7 @@ class FilterTest {
     fun canDefineACustomFilter() {
         val registry = Registry()
 
-        registry.addFilterClass(TestFilter::class)
+        registry.addFilters(TestFilter)
 
         registry.defineRule("start", listOf("{anadrome.backwards}"))
         registry.defineRule("anadrome", listOf("desserts"))
@@ -77,7 +77,7 @@ class FilterTest {
     fun incorrectFilterSignatureThrows() {
         val registry = Registry()
 
-        registry.addFilterClass(TestFilter::class)
+        registry.addFilters(TestFilter)
 
         registry.defineRule("start", listOf("{ball.incorrectparams}"))
         registry.defineRule("ball", listOf("⚽", "🏀", "⚾"))
@@ -91,7 +91,7 @@ class FilterTest {
     fun incorrectFilterParamCountThrows() {
         val registry = Registry()
 
-        registry.addFilterClass(TestFilter::class)
+        registry.addFilters(TestFilter)
 
         registry.defineRule("start", listOf("{ball.incorrectparamcount}"))
         registry.defineRule("ball", listOf("⚽", "🏀", "⚾"))
@@ -101,38 +101,18 @@ class FilterTest {
         }
     }
 
-    @Test
-    fun nonStaticFilterThrows() {
-        val registry = Registry()
-
-        registry.addFilterClass(TestFilter::class)
-
-        registry.defineRule("start", listOf("{ball.nonstatic}"))
-        registry.defineRule("ball", listOf("⚽", "🏀", "⚾"))
-
-        assertThrows<NonStaticFilter> {
-            registry.evaluate("start")
-        }
-    }
-
     @Suppress("unused")
     internal object TestFilter {
 
         @FilterName("backwards")
-        @JvmStatic
         fun backwards(input: String, options: Options): String {
             return input.reversed()
         }
 
         @FilterName("incorrectparams")
-        @JvmStatic
         fun incorrectParams(input: String, options: String): String = ""
 
         @FilterName("incorrectparamcount")
-        @JvmStatic
         fun incorrectParamCount(input: String): String = ""
-
-        @FilterName("nonstatic")
-        fun nonStatic(input: String, options: Options): String = ""
     }
 }
