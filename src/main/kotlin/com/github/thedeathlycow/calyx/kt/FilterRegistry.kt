@@ -3,7 +3,7 @@ package com.github.thedeathlycow.calyx.kt
 import java.lang.reflect.Method
 
 
-class FilterRegistry {
+internal class FilterRegistry {
 
     private val filterHolders: MutableMap<String, Pair<Any, Method>> = mutableMapOf()
 
