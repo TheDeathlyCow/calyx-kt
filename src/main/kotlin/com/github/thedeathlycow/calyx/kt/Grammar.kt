@@ -28,17 +28,17 @@ class Grammar(
 
     constructor(
         strict: Boolean = Options.defaultStrict,
-        registrationCallback: (Grammar) -> Unit
+        registrationCallback: Grammar.() -> Unit
     ) : this(strict) {
-        registrationCallback.invoke(this)
+        registrationCallback()
     }
 
     constructor(
         seed: Int,
         strict: Boolean = Options.defaultStrict,
-        registrationCallback: (Grammar) -> Unit
+        registrationCallback: Grammar.() -> Unit
     ) : this(seed, strict) {
-        registrationCallback.invoke(this)
+        registrationCallback()
     }
 
     companion object {
@@ -148,8 +148,8 @@ class Grammar(
         return this
     }
 
-    fun filters(filters: KClass<*>): Grammar {
-        registry.addFilterClass(filters)
+    fun filters(filters: Any): Grammar {
+        registry.addFilters(filters)
         return this
     }
 

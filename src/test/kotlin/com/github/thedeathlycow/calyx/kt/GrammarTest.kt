@@ -30,7 +30,7 @@ class GrammarTest {
     @Test
     fun constructorRuleTest() {
         val grammar = Grammar {
-            it.rule("start", "#|||#")
+            rule("start", "#|||#")
         }
         val result = grammar.generate()
         assertEquals("#|||#", result.text)
@@ -39,7 +39,7 @@ class GrammarTest {
     @Test
     fun constructorStartTest() {
         val grammar = Grammar {
-            it.start("{plus}|||{plus}")
+            start("{plus}|||{plus}")
                 .rule("plus", "++++")
         }
         val result = grammar.generate()
@@ -49,8 +49,8 @@ class GrammarTest {
     @Test
     fun customStartSymbolTest() {
         val grammar = Grammar {
-            it.rule("banner", "{tilde}|||{tilde}")
-                .rule("tilde", "~~~~")
+            rule("banner", "{tilde}|||{tilde}")
+                .rule("tilde", listOf("~~~~"))
         }
         val result = grammar.generate("banner")
         assertEquals("~~~~|||~~~~", result.text)
@@ -87,7 +87,7 @@ class GrammarTest {
     @Test
     fun memoizationExpressionTest() {
         val grammar = Grammar {
-            it.start("{@glyph}|{@glyph}")
+            start("{@glyph}|{@glyph}")
                 .rule("glyph", listOf("+"))
         }
 
@@ -99,7 +99,7 @@ class GrammarTest {
     @Test
     fun filterExpressionTest() {
         val grammar = Grammar {
-            it.start("{greekLetter.uppercase}")
+            start("{greekLetter.uppercase}")
                 .rule("greekLetter", listOf("alpha"))
         }
 
@@ -111,9 +111,9 @@ class GrammarTest {
     @Test
     fun customFilterExpressionTest() {
         val grammar = Grammar {
-            it.start("{word.vowelcount}")
-                .rule("word", listOf("autobiographies"))
-                .filters(TestFilter::class)
+            start("{word.vowelcount}")
+                .rule("word", "autobiographies")
+                .filters(TestFilter)
         }
 
         val result = grammar.generate()

@@ -2,7 +2,6 @@ package com.github.thedeathlycow.calyx.kt
 
 import java.lang.reflect.Method
 import java.math.BigDecimal
-import kotlin.reflect.KClass
 
 class Registry(
     options: Options? = null
@@ -13,7 +12,9 @@ class Registry(
     private val context: MutableMap<String, Rule> = HashMap()
     private val memos: MutableMap<String, Expansion> = HashMap()
     private val cycles: MutableMap<String, Cycle> = HashMap()
-    private val filterClasses: MutableList<KClass<*>> = mutableListOf(Filters::class)
+    private val filters: FilterRegistry = FilterRegistry().apply {
+        addFilters(Filters)
+    }
 
     init {
         this.options = options ?: Options()
@@ -99,31 +100,12 @@ class Registry(
         }
     }
 
-    fun addFilterClass(filterClass: KClass<*>) {
-        this.filterClasses.add(filterClass)
+    fun addFilters(filterInstance: Any) {
+        this.filters.addFilters(filterInstance)
     }
 
-    fun getFilterComponent(label: String): (String) -> String  {
-        val filter: Method? = filterClasses
-            .flatMap { filterClass ->
-                filterClass.java.methods.filter { method ->
-                    val annotation: FilterName? = method.getAnnotation(FilterName::class.java)
-                    annotation !== null && annotation.name == label
-                }
-            }
-            .firstOrNull()
-
-        if (filter === null) {
-            throw UndefinedFilter(label)
-        }
-
-        if (filter.getAnnotation(JvmStatic::class.java) === null) {
-            throw NonStaticFilter(label)
-        }
-
-        return { input ->
-            filter.invoke(null, input, options) as String
-        }
+    fun getFilterComponent(label: String): (String, Options) -> String  {
+        return filters[label]
     }
 
     fun resetEvaluationContext() {

@@ -9,20 +9,20 @@ import com.github.thedeathlycow.calyx.kt.syntax.ExpressionChain
  * For example, converting the string to upper case. The method that this annotates must have a string parameter (which
  * is the input string to transform), an [Options] parameter, and it must return a string.
  *
- * This annotation can only be applied to static methods in Java or, in Kotlin, methods annotated with [JvmStatic]
- *
  * For example:
  *
  * ```kt
  * object MyFilters {
  *      @FilterName("backwards")
- *      @JvmStatic
  *      fun backwards(input: String, options: Options): String {
  *          return input.reversed()
  *      }
  * }
  * ```
  *
+ * In order to register a filter to a Grammar, pass an instance of the containing class to [Grammar.filters].
+ *
+ * @param name The name of the filter
  * @see Filters
  */
 @Target(AnnotationTarget.FUNCTION)
