@@ -3,10 +3,10 @@ package com.github.thedeathlycow.calyx.kt
 
 internal class FilterRegistry {
 
-    private val filterHolders: MutableMap<String, (String, Options) -> String> = mutableMapOf()
+    private val filters: MutableMap<String, (String, Options) -> String> = mutableMapOf()
 
     operator fun get(name: String): (String, Options) -> String {
-        val filter = filterHolders[name] ?: throw UndefinedFilter(name)
+        val filter = filters[name] ?: throw UndefinedFilter(name)
         return { input, options ->
             try {
                 filter(input, options)
@@ -21,7 +21,7 @@ internal class FilterRegistry {
             val annotation: FilterName? = method.getAnnotation(FilterName::class.java)
             if (annotation != null) {
                 val name = annotation.name
-                filterHolders[name] = { input, options ->
+                filters[name] = { input, options ->
                     method(instance, input, options) as String
                 }
             }
