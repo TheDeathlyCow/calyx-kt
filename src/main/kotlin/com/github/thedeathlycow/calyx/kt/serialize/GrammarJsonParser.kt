@@ -15,18 +15,8 @@ object GrammarJsonParser : JsonDeserializer<Grammar> {
 
         val grammar = Grammar()
 
-        // explicitly require a start rule!
-        this.parseRule(
-            grammar,
-            "start",
-            jsonObject["start"] ?: throw IllegalArgumentException("A 'start' rule is required for grammars")
-        )
-
         jsonObject.keySet().forEach {
-            // start already parsed -- don't do it again
-            if (it != "start") {
-                this.parseRule(grammar, it, jsonObject[it])
-            }
+            this.parseRule(grammar, it, jsonObject[it])
         }
 
         return grammar
