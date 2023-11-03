@@ -5,24 +5,17 @@ internal class FilterRegistry {
 
     private val filters: MutableMap<String, (String, Options) -> String> = mutableMapOf()
 
-    operator fun get(name: String): (String, Options) -> String {
-        val filter = filters[name] ?: throw UndefinedFilter(name)
-        return { input, options ->
-            try {
-                filter(input, options)
-            } catch (e: IllegalArgumentException) {
-                throw IncorrectFilterSignature(name, e)
-            }
-        }
-    }
+    operator fun get(name: String): (String, Options) -> String = filters[name] ?: throw UndefinedFilter(name)
 
     fun addFilters(instance: Any) {
         for (method in instance.javaClass.methods) {
-            val annotation: FilterName? = method.getAnnotation(FilterName::class.java)
-            if (annotation != null) {
-                val name = annotation.name
-                filters[name] = { input, options ->
+            val annotation: FilterName = method.getAnnotation(FilterName::class.java) ?: continue
+            val name = annotation.name
+            filters[name] = { input, options ->
+                try {
                     method(instance, input, options) as String
+                } catch (e: IllegalArgumentException) {
+                    throw IncorrectFilterSignature(name, e)
                 }
             }
         }
