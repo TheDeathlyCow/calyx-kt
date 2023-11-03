@@ -1,4 +1,4 @@
-package com.github.calyx.kt.test.util
+package com.github.thedeathlycow.calyx.kt.util
 
 import kotlin.test.assertTrue
 

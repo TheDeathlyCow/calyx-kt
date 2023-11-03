@@ -1,6 +1,6 @@
-package com.github.calyx.kt.test.production
+package com.github.thedeathlycow.calyx.kt.production
 
-import com.github.calyx.kt.test.util.assertNumberWithinPercentRange
+import com.github.thedeathlycow.calyx.kt.util.assertNumberWithinPercentRange
 import com.github.thedeathlycow.calyx.kt.Options
 import com.github.thedeathlycow.calyx.kt.Registry
 import com.github.thedeathlycow.calyx.kt.production.WeightedBranch

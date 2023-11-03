@@ -1,4 +1,4 @@
-package com.github.calyx.kt.test.syntax
+package com.github.thedeathlycow.calyx.kt.syntax
 
 import com.github.thedeathlycow.calyx.kt.InvalidExpression
 import com.github.thedeathlycow.calyx.kt.syntax.TemplateNode

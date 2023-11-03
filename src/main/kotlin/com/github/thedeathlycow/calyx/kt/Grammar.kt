@@ -1,5 +1,9 @@
 package com.github.thedeathlycow.calyx.kt
 
+import com.github.thedeathlycow.calyx.kt.serialize.GrammarJsonParser
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+import java.io.FileReader
 import java.math.BigDecimal
 import kotlin.random.Random
 import kotlin.reflect.KClass
@@ -37,8 +41,55 @@ class Grammar(
         registrationCallback()
     }
 
-    fun load(fileName: String) {
+    companion object {
 
+        private val gson: Gson = GsonBuilder()
+            .registerTypeAdapter(Grammar::class.java, GrammarJsonParser)
+            .create()
+
+        /**
+         * Loads a grammar from a file, given by [fileName]. Currently only supports JSON parsing.
+         *
+         * @param fileName The name of the file to parse from.
+         * @return Returns the Grammar described in the file.
+         * @throws GrammarParseException Thrown if there is an issue parsing the grammar. The cause will contain more details.
+         */
+        @Throws(GrammarParseException::class)
+        fun load(fileName: String): Grammar {
+            try {
+                return readGrammarFile(fileName)
+            } catch (exception: Exception) {
+                throw GrammarParseException("Error parsing grammar", exception)
+            }
+        }
+
+        /**
+         * Directly parses a grammar JSON string into a [Grammar]
+         *
+         * @param rawJson A raw JSON string to parse into a grammar
+         * @return Returns the grammar representing by the JSON string
+         * @throws GrammarParseException Thrown if there is an issue parsing the grammar. The cause will contain more details.
+         */
+        @Throws(GrammarParseException::class)
+        fun loadJson(rawJson: String): Grammar {
+            try {
+                return gson.fromJson(rawJson, Grammar::class.java)
+            } catch (exception: Exception) {
+                throw GrammarParseException("Error parsing grammar", exception)
+            }
+        }
+
+        private fun readGrammarFile(fileName: String): Grammar {
+            FileReader(fileName).use {
+                if (fileName.endsWith(".json")) {
+                    return gson.fromJson(it, Grammar::class.java)
+                } else if (fileName.endsWith(".yaml")) {
+                    TODO("YAML support is not yet implemented, sorry!")
+                } else {
+                    throw IllegalArgumentException("Grammars must be specified in a JSON file!")
+                }
+            }
+        }
     }
 
     fun start(productions: List<String>): Grammar {
