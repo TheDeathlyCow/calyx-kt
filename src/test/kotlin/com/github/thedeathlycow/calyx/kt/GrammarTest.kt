@@ -121,11 +121,32 @@ class GrammarTest {
         assertEquals("8", result.text)
     }
 
+    @Test
+    fun canFilterMemoizedRules() {
+        val grammar = Grammar(seed = 1234) {
+            start("{@name.lowercase}")
+            rule("name", "Jewelsy")
+        }
+
+        val result = grammar.generate()
+        assertEquals("jewelsy", result.text)
+    }
+
+    @Test
+    fun canFilterUniqueRules() {
+        val grammar = Grammar(seed = 1234) {
+            start("{\$name.lowercase}")
+            rule("name", "Jewelsy")
+        }
+
+        val result = grammar.generate()
+        assertEquals("jewelsy", result.text)
+    }
+
     @Suppress("unused")
     internal object TestFilter {
 
         @FilterName("vowelcount")
-        @JvmStatic
         fun vowelCount(input: String, options: Options): String {
             return input.asSequence()
                 .count { "aeiou".contains(it.lowercaseChar()) }

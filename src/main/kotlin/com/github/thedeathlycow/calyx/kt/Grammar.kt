@@ -30,7 +30,7 @@ class Grammar(
         strict: Boolean = Options.defaultStrict,
         registrationCallback: Grammar.() -> Unit
     ) : this(strict) {
-        registrationCallback()
+        this.registrationCallback()
     }
 
     constructor(
@@ -38,7 +38,7 @@ class Grammar(
         strict: Boolean = Options.defaultStrict,
         registrationCallback: Grammar.() -> Unit
     ) : this(seed, strict) {
-        registrationCallback()
+        this.registrationCallback()
     }
 
     companion object {

@@ -35,11 +35,12 @@ class TemplateNode(
                     // check if we have a post-processing chain
                     if (components.size > 1) {
                         // generate a chained expression headed by a non terminal
-                        concatNodes.add(ExpressionChain(components, registry))
+                        concatNodes.add(ExpressionChain.parse(components, registry))
                     } else {
                         // generate a standalone non terminal expression
                         concatNodes.add(ExpressionNode.parse(components[0], registry))
                     }
+
                 } else {
                     // collect a string terminal
                     concatNodes.add(AtomNode(atom))
