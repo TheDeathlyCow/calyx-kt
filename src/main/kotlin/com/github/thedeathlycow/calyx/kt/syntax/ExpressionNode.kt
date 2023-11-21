@@ -11,8 +11,12 @@ class ExpressionNode(
 ) : Production {
 
     companion object {
-        internal const val MEMO_SIGIL: Char = '@'
-        internal const val UNIQUE_SIGIL: Char = '$'
+        private const val MEMO_SIGIL: Char = '@'
+        private const val UNIQUE_SIGIL: Char = '$'
+
+        internal fun Char.isSigil(): Boolean {
+            return this == MEMO_SIGIL || this == UNIQUE_SIGIL
+        }
 
         fun parse(raw: String, registry: Registry): Production {
             return when {
