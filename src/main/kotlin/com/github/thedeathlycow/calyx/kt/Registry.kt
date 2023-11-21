@@ -1,6 +1,5 @@
 package com.github.thedeathlycow.calyx.kt
 
-import java.lang.reflect.Method
 import java.math.BigDecimal
 
 class Registry(
@@ -22,6 +21,10 @@ class Registry(
 
     fun defineRule(name: String, productions: List<String>) {
         val rule = Rule.build(name, productions, this)
+        this.rules[name] = rule
+    }
+
+    fun defineRule(name: String, rule: Rule) {
         this.rules[name] = rule
     }
 

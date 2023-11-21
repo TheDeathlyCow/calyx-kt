@@ -6,13 +6,12 @@ import com.google.gson.GsonBuilder
 import java.io.FileReader
 import java.math.BigDecimal
 import kotlin.random.Random
-import kotlin.reflect.KClass
 
 class Grammar(
     options: Options
 ) {
 
-    private val registry: Registry
+    internal val registry: Registry
 
     init {
         this.registry = Registry(options)
